@@ -1,33 +1,25 @@
 # Estágio 1: Build da aplicação
 FROM eclipse-temurin:21-jdk-jammy AS build
 
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia os arquivos de build
-COPY pom.xml ./
-COPY mvnw ./
-COPY .mvn/ ./
+# Copia TODOS os arquivos da raiz do repositório para o container
+COPY . .
 
-# Adiciona permissão de execução ao mvnw
+# Adiciona permissão de execução
 RUN chmod +x ./mvnw
 
-# Baixa as dependências do Maven
-RUN ./mvnw dependency:go-offline
-
-# Copia o código-fonte
-COPY src ./src
-
-# Compila o projeto e cria o arquivo .jar
+# Baixa as dependências e compila
 RUN ./mvnw clean package -DskipTests
 
 # Estágio 2: Criação da imagem final (para execução)
 FROM eclipse-temurin:21-jre-jammy
 
-# Define o diretório de trabalho para a aplicação final
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o arquivo .jar do estágio de build para o estágio final
+# Copia o arquivo .jar do estágio de build
 COPY --from=build /app/target/*.jar ./app.jar
 
 # Define o comando de inicialização
