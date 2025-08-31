@@ -5,14 +5,12 @@ FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 # Copia os arquivos necessários para o Maven Wrapper
-# Garante que eles estejam no mesmo nível que o pom.xml
-COPY mvnw .mvn/ ./
+COPY mvnw ./
+COPY .mvn/ ./
+COPY pom.xml ./
 
 # Adiciona permissão de execução ao mvnw
 RUN chmod +x ./mvnw
-
-# Copia o arquivo de build
-COPY pom.xml ./
 
 # Baixa as dependências do Maven para otimizar o build
 RUN ./mvnw dependency:go-offline
