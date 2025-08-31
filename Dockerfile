@@ -1,25 +1,34 @@
-# Usa a imagem base do JDK 21
-FROM eclipse-temurin:21-jdk-jammy
+# Estágio 1: Build da aplicação
+FROM eclipse-temurin:21-jdk-jammy AS build
 
-# Define o diretório de trabalho no container
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia os arquivos necessários para o Maven Wrapper
+# Copia os arquivos de build
+COPY pom.xml ./
 COPY mvnw ./
 COPY .mvn/ ./
-COPY pom.xml ./
 
 # Adiciona permissão de execução ao mvnw
 RUN chmod +x ./mvnw
 
-# Baixa as dependências do Maven para otimizar o build
+# Baixa as dependências do Maven
 RUN ./mvnw dependency:go-offline
 
-# Copia o código-fonte da aplicação
+# Copia o código-fonte
 COPY src ./src
 
-# Compila e empacota a aplicação em um JAR
+# Compila o projeto e cria o arquivo .jar
 RUN ./mvnw clean package -DskipTests
 
-# Define o comando para rodar a aplicação
-CMD ["java", "-jar", "target/*.jar"]
+# Estágio 2: Criação da imagem final (para execução)
+FROM eclipse-temurin:21-jre-jammy
+
+# Define o diretório de trabalho para a aplicação final
+WORKDIR /app
+
+# Copia o arquivo .jar do estágio de build para o estágio final
+COPY --from=build /app/target/*.jar ./app.jar
+
+# Define o comando de inicialização
+CMD ["java", "-jar", "app.jar"]
