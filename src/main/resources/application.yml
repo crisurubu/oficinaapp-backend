@@ -5,6 +5,7 @@ spring:
     password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+    ddl-auto: update
     show-sql: true
+    driver-class-name: org.postgresql.Driver
 
