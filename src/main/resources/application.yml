@@ -6,13 +6,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
 
-server:
-  port: ${PORT}
-
-minha-aplicacao:
-  api-key: ${MINHA_API_KEY}
-  config:
-    url-base: ${URL_BASE}
