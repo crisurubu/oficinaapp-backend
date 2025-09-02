@@ -9,7 +9,11 @@ public class WebConfiguration implements WebMvcConfigurer {
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-			registry.addMapping("/**").allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS");
+			registry.addMapping("/**")
+					.allowedOrigins("https://oficinaapp-frontend.onrender.com")
+					.allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
+					.allowedHeaders("*")
+					.allowCredentials(true);
 		
 	}
 
