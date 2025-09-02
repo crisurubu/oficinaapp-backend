@@ -25,7 +25,7 @@ public class Formulario {
     private String operador;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT")
     private LocalDate data;
-    @Column(name = "veiculo", length = 30, nullable = false)
+    @Column(name = "veiculo", length = 30)
     private String veiculo;
     @Column(name = "projeto")
     private String projeto;
@@ -33,6 +33,6 @@ public class Formulario {
     private String inicio;
     @Column(name = "fim")
     private String fim;
-    @Column(name = "descricao", nullable = false)
+    @Column(name = "descricao")
     private String descricao;
 }
