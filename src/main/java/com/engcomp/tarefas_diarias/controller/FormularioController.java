@@ -48,7 +48,7 @@ public class FormularioController {
 
         return service.buscarPessoas(nome, inicio, fim);
     }
-    @GetMapping("/semanal")
+  /*  @GetMapping("/semanal")
     public List<Formulario> buscarSemanal( @RequestParam(value = "nome", required = true) String nome,
                                            @RequestParam("inicio")
                                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
@@ -60,7 +60,7 @@ public class FormularioController {
         }
 
         return service.buscarPessoas(nome,inicio, fim);
-    }
+    }*/
 
     @GetMapping("semanal-excel")
     public ResponseEntity<byte[]> exportarPedidosExcel(
