@@ -10,7 +10,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 			registry.addMapping("/**")
-					.allowedOrigins("https://oficinaapp-frontend.onrender.com")
+					.allowedOrigins("*")
 					.allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
 					.allowedHeaders("*")
 					.allowCredentials(false);
