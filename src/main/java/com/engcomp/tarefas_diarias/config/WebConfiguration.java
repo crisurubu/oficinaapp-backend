@@ -10,11 +10,12 @@ public class WebConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 			registry.addMapping("/**")
-					.allowedOrigins("*")
-					.allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
-					.allowedHeaders("*")
-					.allowCredentials(false);
-		
+					.allowedOrigins("https://oficinaapp-frontend.onrender.com") // Substitua pelo URL do seu front-end
+					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos HTTP permitidos
+					.allowedHeaders("*") // Cabeçalhos permitidos
+					.allowCredentials(true); // Muito importante: permite o envio de credenciais (cookies, headers, etc.)
+
+
 	}
 
 }
